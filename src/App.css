@@ -76,7 +76,7 @@ input {
   margin: 0.5rem;
 }
 
-.error-msg {
+.output-msg {
   font-weight: bolder;
   text-align: center;
   margin: 1rem;

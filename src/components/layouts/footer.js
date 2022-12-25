@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 import React from "react";
 
 let getCopyrightText = `© ${new Date().getFullYear()} | All Rights Reserved`;

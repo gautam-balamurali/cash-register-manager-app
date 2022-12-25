@@ -3,6 +3,7 @@
 :root {
   --primary: #0f172a;
   --secondary: #cbd5e1;
+  --tertiary: #64748b;
   --red: #dc2626;
 }
 
@@ -41,7 +42,7 @@
   flex-direction: column;
 }
 
-.button {
+.btn-enabled {
   color: var(--secondary);
   background-color: var(--primary);
   width: max-content;
@@ -51,6 +52,18 @@
   padding: 0.5rem;
   margin: 1rem;
   cursor: pointer;
+}
+
+.btn-disabled {
+  color: var(--secondary);
+  background-color: var(--tertiary);
+  width: max-content;
+  min-width: 100px;
+  border-radius: 0.5rem;
+  border-color: var(--tertiary);
+  padding: 0.5rem;
+  margin: 1rem;
+  cursor: not-allowed;
 }
 
 label {
@@ -76,11 +89,18 @@ input {
   margin: 0.5rem;
 }
 
-.output-msg {
+.error-msg {
   font-weight: bolder;
   text-align: center;
   margin: 1rem;
   color: var(--red);
+}
+
+.output-msg {
+  font-weight: bolder;
+  text-align: center;
+  margin: 1rem;
+  color: var(--primary);
 }
 
 h1 {
@@ -174,7 +194,8 @@ td {
 
   label,
   input,
-  .button {
+  .btn-enabled,
+  .btn-disabled {
     font-size: larger;
   }
 }
@@ -186,7 +207,8 @@ td {
 
   label,
   input,
-  .button {
+  .btn-enabled,
+  .btn-disabled {
     font-size: large;
   }
 

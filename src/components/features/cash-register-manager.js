@@ -11,24 +11,33 @@ function CashRegisterManager() {
     AppConstants.NO_OF_EACH_AVAILABLE_NOTES
   );
   const [outputMessage, setOutputMessage] = useState("");
-  const [showNextButton, setShowNextButton] = useState(true);
+  const [showNextButton, setShowNextButton] = useState(
+    AppConstants.DEFAULT_CONSTANTS.NEXT_BUTTON_ENABLED
+  );
 
-  function integerInputErrorHandler() {
-    setOutputMessage("Input should be a valid integer greater than 0.");
-  }
+  //   <-- Validity Functions Begins -->
 
-  function insufficientCashHandler() {
-    setOutputMessage("Insufficient Cash! You know the drill!😡");
-  }
-
+  /**
+   * Function to check validity of check button
+   * @returns boolean
+   */
   function isCheckButtonInvalid() {
     return billInput.length < 1 || cashInput.length < 1;
   }
 
+  /**
+   * Function to check validity of next button
+   * @returns boolean
+   */
   function isNextButtonInvalid() {
     return billInput.length < 1;
   }
 
+  /**
+   * Function to check input validity
+   * @param input
+   * @returns boolean
+   */
   function isInputValid(input) {
     if (isNaN(input) || parseInt(input) < 0 || input === "") {
       integerInputErrorHandler();
@@ -37,6 +46,32 @@ function CashRegisterManager() {
     return true;
   }
 
+  //   <-- Validity Functions Ends -->
+
+  //   <-- Error Handling Functions Begins -->
+
+  /**
+   * Function to handle invalid integer input
+   */
+  function integerInputErrorHandler() {
+    setOutputMessage(AppConstants.DEFAULT_CONSTANTS.INVALID_INPUT_MESSAGE);
+  }
+
+  /**
+   * Function to handle insufficient cash input
+   */
+  function insufficientCashHandler() {
+    setOutputMessage(AppConstants.DEFAULT_CONSTANTS.INSUFFICIENT_CASH_MESSAGE);
+  }
+
+  //   <-- Error Handling Functions Ends -->
+
+  //   <-- Change Handler Functions Begins -->
+
+  /**
+   * Function to handle bill input change
+   * @param event
+   */
   function billInputChangeHandler(event) {
     let inputBill = event.target.value;
     if (isInputValid(inputBill)) {
@@ -45,12 +80,16 @@ function CashRegisterManager() {
     } else {
       integerInputErrorHandler();
       setBillInput("");
-      setShowNextButton(true);
+      setShowNextButton(AppConstants.DEFAULT_CONSTANTS.NEXT_BUTTON_ENABLED);
       setCashInput("");
       setNoOfEachAvailableNotes(AppConstants.NO_OF_EACH_AVAILABLE_NOTES);
     }
   }
 
+  /**
+   * Function to handle cash input change
+   * @param event
+   */
   function cashInputChangeHandler(event) {
     let inputCash = event.target.value;
     if (isInputValid(inputCash)) {
@@ -64,10 +103,22 @@ function CashRegisterManager() {
     }
   }
 
+  //   <-- Change Handler Functions Ends -->
+
+  //   <-- Click Handler Functions Begins -->
+
+  /**
+   * Function to handle when next button is clicked
+   */
   function nextButtonClickHandler() {
-    setShowNextButton(false);
+    setShowNextButton(AppConstants.DEFAULT_CONSTANTS.NEXT_BUTTON_DISABLED);
   }
 
+  /**
+   * Function to handle when check button is clicked
+   * @param cashAmount
+   * @param billAmount
+   */
   function checkButtonClickHandler(cashAmount, billAmount) {
     if (parseInt(cashAmount) > parseInt(billAmount)) {
       let returnChangeAmount = cashAmount - billAmount;
@@ -78,8 +129,14 @@ function CashRegisterManager() {
     }
   }
 
+  /**
+   * Function to calculate number of denominations
+   * @param returnChangeAmount
+   */
   function calculateNoOfDenominations(returnChangeAmount) {
-    setOutputMessage(`${returnChangeAmount} 💰`);
+    setOutputMessage(
+      `💰 ${AppConstants.DEFAULT_CONSTANTS.RETURN_AMOUNT_MESSAGE} ${returnChangeAmount}`
+    );
     let noOfEachAvailableNotesUpdated = [];
     AppConstants.AVAILABLE_NOTES.forEach((note, index) => {
       let noOfNotes = Math.trunc(returnChangeAmount / note);
@@ -89,11 +146,21 @@ function CashRegisterManager() {
     setNoOfEachAvailableNotes(noOfEachAvailableNotesUpdated);
   }
 
+  //   <-- Click Handler Functions Ends -->
+
+  //   <-- Render Functions Begins -->
+
+  /**
+   * Function to render next button
+   * @returns button
+   */
   function renderNextButton() {
     if (showNextButton)
       return (
         <button
-          className="button"
+          className={`${
+            isNextButtonInvalid() ? "btn-disabled" : "btn-enabled"
+          }`}
           disabled={isNextButtonInvalid()}
           onClick={nextButtonClickHandler}
         >
@@ -103,6 +170,31 @@ function CashRegisterManager() {
     return null;
   }
 
+  /**
+   * Function to render bill input section
+   * @returns bill input section
+   */
+  function renderBillInputSection() {
+    return (
+      <div className="sub-section">
+        <label htmlFor="input-bill" className="bill-label">
+          Bill Amount:
+        </label>
+        <input
+          id="input-bill"
+          value={billInput}
+          onChange={billInputChangeHandler}
+          placeholder={"Enter Bill Amount"}
+        ></input>
+        {renderNextButton()}
+      </div>
+    );
+  }
+
+  /**
+   * Function to render cash input section
+   * @returns cash input section
+   */
   function renderCashInputSection() {
     if (!showNextButton)
       return (
@@ -118,7 +210,9 @@ function CashRegisterManager() {
           ></input>
 
           <button
-            className="button"
+            className={`${
+              isCheckButtonInvalid() ? "btn-disabled" : "btn-enabled"
+            }`}
             disabled={isCheckButtonInvalid()}
             onClick={() => checkButtonClickHandler(cashInput, billInput)}
           >
@@ -129,6 +223,10 @@ function CashRegisterManager() {
     return null;
   }
 
+  /**
+   * Function to render notes table section
+   * @returns notes table section
+   */
   function renderNotesTableSection() {
     if (!showNextButton)
       return (
@@ -157,28 +255,28 @@ function CashRegisterManager() {
     return null;
   }
 
+  //   <-- Render Functions Ends -->
+
+  //   <-- Rendering of Cash Register Manager App -->
   return (
     <section className="section">
-      <h3>
-        Enter the bill amount and cash given by the customer and know minimum
-        number of notes to return.
-      </h3>
+      <h3>{AppConstants.DEFAULT_CONSTANTS.APP_DESCRIPTION}</h3>
 
-      <label htmlFor="input-bill" className="bill-label">
-        Bill Amount:
-      </label>
-      <input
-        id="input-bill"
-        value={billInput}
-        onChange={billInputChangeHandler}
-        placeholder={"Enter Bill Amount"}
-      ></input>
-
-      {renderNextButton()}
+      {renderBillInputSection()}
 
       {renderCashInputSection()}
 
-      <p className="output-msg">{outputMessage}</p>
+      <p
+        className={`${
+          outputMessage.includes(
+            AppConstants.DEFAULT_CONSTANTS.RETURN_AMOUNT_MESSAGE
+          )
+            ? "output-msg"
+            : "error-msg"
+        }`}
+      >
+        {outputMessage}
+      </p>
 
       {renderNotesTableSection()}
     </section>

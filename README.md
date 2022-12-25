@@ -2,7 +2,7 @@
 
 * A cash register manager app which helps the user on how he/she can return the change to the customer with minimum number of notes.
 * All inputs should be integer format.
-* Input validations handled accordingly.
+* Invalid input validations handled accordingly.
 
 # Sample input/output
 

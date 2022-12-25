@@ -1,3 +1,31 @@
+# cash-register-manager-app
+
+* A cash register manager app which helps the user on how he/she can return the change to the customer with minimum number of notes.
+* All inputs should be integer format.
+* Input validations handled accordingly.
+
+# Sample input/output
+
+![image](https://user-images.githubusercontent.com/27736288/209478064-777b2412-6913-405a-a2e1-191fda4405ee.png)
+![image](https://user-images.githubusercontent.com/27736288/209478078-1818fe56-3c7f-4959-8734-5142e8294783.png)
+![image](https://user-images.githubusercontent.com/27736288/209478094-b464b91a-bcc1-46ee-8d4f-a36d33eafc56.png)
+![image](https://user-images.githubusercontent.com/27736288/209478108-9e291cb5-a76c-45e2-b690-bad79d2db970.png)
+![image](https://user-images.githubusercontent.com/27736288/209478130-472574ee-c63f-4bdf-8667-d3ccc6ee47e4.png)
+
+
+# Tech Stack
+
+* React
+* Netlify
+
+# Preview
+
+[View live](https://cash-register-app-gautam-balamurali.netlify.app/)
+
+# License
+
+[View license](https://github.com/gautam-balamurali/cash-register-manager-app/blob/master/LICENSE.md)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

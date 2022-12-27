@@ -39,7 +39,7 @@ function CashRegisterManager() {
    * @returns boolean
    */
   function isInputValid(input) {
-    if (isNaN(input) || parseInt(input) < 0 || input === "") {
+    if (isNaN(input) || parseInt(input) <= 0 || input === "") {
       integerInputErrorHandler();
       return false;
     }

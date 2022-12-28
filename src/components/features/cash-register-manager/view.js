@@ -1,8 +1,13 @@
 /* eslint-disable */
 
 import React from "react";
-import * as AppConstants from "../../config/app-config";
+import * as AppConstants from "../../../config/app-config";
 import { useState } from "react";
+import {
+  containsOnlySpaces,
+  convertToInteger,
+  isNotANumber,
+} from "../../../utils/app-utils";
 
 function CashRegisterManager() {
   const [billInput, setBillInput] = useState("");
@@ -39,7 +44,12 @@ function CashRegisterManager() {
    * @returns boolean
    */
   function isInputValid(input) {
-    if (isNaN(input) || parseInt(input) <= 0 || input === "") {
+    if (
+      isNotANumber(input) ||
+      containsOnlySpaces(input) ||
+      convertToInteger(input) <= 0 ||
+      input === ""
+    ) {
       integerInputErrorHandler();
       return false;
     }
@@ -76,6 +86,7 @@ function CashRegisterManager() {
     let inputBill = event.target.value;
     if (isInputValid(inputBill)) {
       setOutputMessage("");
+      setNoOfEachAvailableNotes(AppConstants.NO_OF_EACH_AVAILABLE_NOTES);
       setBillInput(inputBill);
     } else {
       integerInputErrorHandler();
@@ -151,6 +162,14 @@ function CashRegisterManager() {
   //   <-- Render Functions Begins -->
 
   /**
+   * Function to render app description
+   * @returns app description
+   */
+  function renderAppDescriptionSection() {
+    return <h3>{AppConstants.DEFAULT_CONSTANTS.APP_DESCRIPTION}</h3>;
+  }
+
+  /**
    * Function to render next button
    * @returns button
    */
@@ -192,6 +211,22 @@ function CashRegisterManager() {
   }
 
   /**
+   * Function to render check button
+   * @returns check button
+   */
+  function renderCheckButton() {
+    return (
+      <button
+        className={`${isCheckButtonInvalid() ? "btn-disabled" : "btn-enabled"}`}
+        disabled={isCheckButtonInvalid()}
+        onClick={() => checkButtonClickHandler(cashInput, billInput)}
+      >
+        Check
+      </button>
+    );
+  }
+
+  /**
    * Function to render cash input section
    * @returns cash input section
    */
@@ -209,18 +244,30 @@ function CashRegisterManager() {
             placeholder={"Enter Cash Amount"}
           ></input>
 
-          <button
-            className={`${
-              isCheckButtonInvalid() ? "btn-disabled" : "btn-enabled"
-            }`}
-            disabled={isCheckButtonInvalid()}
-            onClick={() => checkButtonClickHandler(cashInput, billInput)}
-          >
-            Check
-          </button>
+          {renderCheckButton()}
         </div>
       );
     return null;
+  }
+
+  /**
+   * Function to render output message
+   * @returns output message
+   */
+  function renderOutput() {
+    return (
+      <p
+        className={`${
+          outputMessage.includes(
+            AppConstants.DEFAULT_CONSTANTS.RETURN_AMOUNT_MESSAGE
+          )
+            ? "output-msg"
+            : "error-msg"
+        }`}
+      >
+        {outputMessage}
+      </p>
+    );
   }
 
   /**
@@ -258,26 +305,13 @@ function CashRegisterManager() {
   //   <-- Render Functions Ends -->
 
   //   <-- Rendering of Cash Register Manager App -->
+
   return (
     <section className="section">
-      <h3>{AppConstants.DEFAULT_CONSTANTS.APP_DESCRIPTION}</h3>
-
+      {renderAppDescriptionSection()}
       {renderBillInputSection()}
-
       {renderCashInputSection()}
-
-      <p
-        className={`${
-          outputMessage.includes(
-            AppConstants.DEFAULT_CONSTANTS.RETURN_AMOUNT_MESSAGE
-          )
-            ? "output-msg"
-            : "error-msg"
-        }`}
-      >
-        {outputMessage}
-      </p>
-
+      {renderOutput()}
       {renderNotesTableSection()}
     </section>
   );

@@ -8,7 +8,7 @@ AVAILABLE_NOTES.forEach((note) => NO_OF_EACH_AVAILABLE_NOTES.push(""));
 const DEFAULT_CONSTANTS = {
   NEXT_BUTTON_ENABLED: true,
   NEXT_BUTTON_DISABLED: false,
-  INVALID_INPUT_MESSAGE: "Input should be a valid integer greater than 0.",
+  INVALID_INPUT_MESSAGE: "Input should be a valid number greater than 0.",
   INSUFFICIENT_CASH_MESSAGE: "Insufficient Cash! You know the drill!😡",
   EQUAL_AMOUNT_MESSAGE: "Thank you for giving the exact change. Have a nice day.🙂",
   RETURN_AMOUNT_MESSAGE: "Total amount to be returned: ",

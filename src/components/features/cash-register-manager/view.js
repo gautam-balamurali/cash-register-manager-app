@@ -134,6 +134,8 @@ function CashRegisterManager() {
     if (parseInt(cashAmount) > parseInt(billAmount)) {
       let returnChangeAmount = cashAmount - billAmount;
       calculateNoOfDenominations(returnChangeAmount);
+    } else if (cashAmount === billAmount) {
+      setOutputMessage(AppConstants.DEFAULT_CONSTANTS.EQUAL_AMOUNT_MESSAGE);
     } else {
       insufficientCashHandler();
       setNoOfEachAvailableNotes(AppConstants.NO_OF_EACH_AVAILABLE_NOTES);
@@ -260,6 +262,9 @@ function CashRegisterManager() {
         className={`${
           outputMessage.includes(
             AppConstants.DEFAULT_CONSTANTS.RETURN_AMOUNT_MESSAGE
+          ) ||
+          outputMessage.includes(
+            AppConstants.DEFAULT_CONSTANTS.EQUAL_AMOUNT_MESSAGE
           )
             ? "output-msg"
             : "error-msg"

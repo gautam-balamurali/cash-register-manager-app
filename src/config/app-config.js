@@ -10,6 +10,7 @@ const DEFAULT_CONSTANTS = {
   NEXT_BUTTON_DISABLED: false,
   INVALID_INPUT_MESSAGE: "Input should be a valid integer greater than 0.",
   INSUFFICIENT_CASH_MESSAGE: "Insufficient Cash! You know the drill!😡",
+  EQUAL_AMOUNT_MESSAGE: "Thank you for giving the exact change. Have a nice day.🙂",
   RETURN_AMOUNT_MESSAGE: "Total amount to be returned: ",
   APP_DESCRIPTION:
     "Enter the bill amount and cash given by the customer and know minimum number of notes to return.",

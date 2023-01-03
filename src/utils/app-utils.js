@@ -26,3 +26,12 @@ export function isNotANumber(input) {
 export function convertToInteger(input) {
   return parseInt(input);
 }
+
+/**
+ * Function to fix to two digits after decimal point
+ * @param {*} input 
+ * @returns fix to two digits after decimal point
+ */
+export function fixToTwoDigitsAfterDecimalPoint(input) {
+  return Number.parseFloat(input).toFixed(2);
+}

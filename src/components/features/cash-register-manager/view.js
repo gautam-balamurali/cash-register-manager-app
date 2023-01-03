@@ -6,6 +6,7 @@ import { useState } from "react";
 import {
   containsOnlySpaces,
   convertToInteger,
+  fixToTwoDigitsAfterDecimalPoint,
   isNotANumber,
 } from "../../../utils/app-utils";
 
@@ -148,7 +149,9 @@ function CashRegisterManager() {
    */
   function calculateNoOfDenominations(returnChangeAmount) {
     setOutputMessage(
-      `💰 ${AppConstants.DEFAULT_CONSTANTS.RETURN_AMOUNT_MESSAGE} ${returnChangeAmount}`
+      `💰 ${
+        AppConstants.DEFAULT_CONSTANTS.RETURN_AMOUNT_MESSAGE
+      } ${fixToTwoDigitsAfterDecimalPoint(returnChangeAmount)}`
     );
     let noOfEachAvailableNotesUpdated = [];
     AppConstants.AVAILABLE_NOTES.forEach((note, index) => {
